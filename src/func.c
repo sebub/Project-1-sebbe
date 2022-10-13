@@ -8,22 +8,22 @@ int data_check(char operator);
 
 void scan_data(char *operator, double *operand)
 {
-    printf("please enter an operator\n");
+    printf("please enter an operator: ");
     while(1) {
         char tempchar;
-        if(scanf(" %c%c", operator, &tempchar) != 2 || tempchar != '\n')
+        if(scanf("%c%c", operator, &tempchar) != 2 || tempchar != '\n')
         {
-            printf(" Please enter valid operator\n");
+            printf("\nPlease enter valid operator:");
         }
         else if(data_check(*operator)==1)
         {
-            printf(" You have entered a binary operator %c \n",*operator);
-            //breaks the loop if the user enters an integer
+            printf("\nYou have entered the unary operator %c.\nPlease enter an operand:",*operator);
+            scanf("%lf", operand);
             break;
 
-        } else if(data_check(*operator)==0){
-            printf("You have entered the unary operator %c. Please enter an operand\n",*operator);
-            scanf("%lf", operand);
+        } else if(data_check(*operator)==0||*operator=='q'){
+            printf("\nYou have entered a binary operator %c \n",*operator);
+            break;
         }
 
         while(getchar() != '\n');
