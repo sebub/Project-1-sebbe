@@ -8,10 +8,11 @@ int data_check(char operator);
 
 void scan_data(char *operator, double *operand)
 {
-    printf("please enter an operator: ");
+    printf("Enter operator");
     while(1) {
+        fflush(stdin);
         char tempchar;
-        if(scanf("%c%c", operator, &tempchar) != 2 || tempchar != '\n')
+        if(scanf("%c%c", operator, &tempchar) != 2 || tempchar != '\n' || data_check(*operator) == -1)
         {
             printf("\nPlease enter valid operator:");
         }
@@ -25,8 +26,6 @@ void scan_data(char *operator, double *operand)
             printf("\nYou have entered a binary operator %c \n",*operator);
             break;
         }
-
-        while(getchar() != '\n');
     }
 
 
@@ -46,6 +45,7 @@ int data_check(char operator) {
         if (operator == unary_chars[i])
             return 0;
     }
+    return -1;
 }
 
 void do_next_op(char operator, double operand, double *accumulator)
@@ -69,8 +69,14 @@ void do_next_op(char operator, double operand, double *accumulator)
         }
         case '/':
         {
-            *accumulator /= operand;
-            break;
+            if(operand>0) {
+                *accumulator /= operand;
+                break;
+            } else
+            {
+                printf("cant divide by 0\n");
+                break;
+            }
         }
         case '^':
         {
@@ -88,7 +94,14 @@ void do_next_op(char operator, double operand, double *accumulator)
         }
         case '!':
         {
+            if(*accumulator > 0){
             *accumulator = 1 / *accumulator;
+            break;
+            } else
+            {
+                printf("cant divide by 0\n");
+                break;
+            }
         }
 
     }
@@ -106,7 +119,7 @@ void run_calculator()
         if(operator == 'q')
             break;
         do_next_op(operator, operand, &accumulator);
-        getchar();
+
 
 
         printf("Accumulator is currently at: %.2lf \n",accumulator);
