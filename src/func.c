@@ -18,12 +18,12 @@ void scan_data(char *operator, double *operand)
         }
         else if(data_check(*operator)==1)
         {
-            printf("\nYou have entered the unary operator %c.\nPlease enter an operand:",*operator);
+            printf("\nYou have entered the binary operator %c.\nPlease enter an operand:",*operator);
             scanf("%lf", operand);
             break;
 
         } else if(data_check(*operator)==0||*operator=='q'){
-            printf("\nYou have entered a binary operator %c \n",*operator);
+            printf("\nYou have entered a unary operator %c \n",*operator);
             break;
         }
     }
